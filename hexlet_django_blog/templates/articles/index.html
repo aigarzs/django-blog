@@ -6,6 +6,7 @@
 
 {% block content %}
 {{ appname }}
+<a href="{% url 'article_create' %}">New article</a>
 <h1>Список статей</h1>
     {% for article in articles %}
         <h2><a href="{% url 'article' id=article.id %}"> {{ article.name }} </a></h2>

@@ -1,5 +1,5 @@
 import django.forms as forms
-from .models import ArticleComment
+from .models import ArticleComment, Article
 
 
 class ArticleCommentForm(forms.ModelForm):
@@ -9,3 +9,8 @@ class ArticleCommentForm(forms.ModelForm):
         widgets = {"article_id": forms.HiddenInput(), "content": forms.Textarea()}
         labels = {"author": "autors", "content": "komentārs"}
 
+
+class ArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ["name", "author", "body"]

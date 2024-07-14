@@ -1,9 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
-from django.urls import reverse
 from django.views import View
 from hexlet_django_blog.articles.models import Article, ArticleComment
-from .forms import ArticleCommentForm
+from .forms import ArticleCommentForm, ArticleForm
 
 
 # Create your views here.
@@ -25,10 +23,26 @@ class ArticleView(View):
                       context={"article": article, "comments": comments})
 
 
+class ArticleCreateView(View):
+    def get(self, request, *args, **kwargs):
+        form = ArticleForm()
+        return render(request, "articles/create.html",
+                      context={"form": form})
+
+    def post(self, request, *args, **kwargs):
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('articles')
+
+        return render(request, 'articles/create.html', {'form': form})
+
+
 class ArticleCommentCreateView(View):
     def get(self, request, *args, **kwargs):
         article_id = kwargs["id"]
-        form = ArticleCommentForm(initial={'article_id': article_id})  # Создаем экземпляр нашей формы
+        form = ArticleCommentForm(
+            initial={'article_id': article_id})  # Создаем экземпляр нашей формы
         return render(request, 'articles/comment.html',
                       {'form': form, 'article_id': article_id})
 
