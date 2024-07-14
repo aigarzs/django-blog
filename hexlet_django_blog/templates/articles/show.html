@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Эксперименты с Django на Хекслете{% endblock %}
+
+{% block content %}
+<h2> {{ article.name }} </h2>
+<div> {{ article.body }} </div>
+<div></div>
+<div><a href="{% url 'comment_create' article.id %}">Komentēt</a></div>
+{% for comment in comments %}
+<p><b>{{ comment.author }}</b></p>
+<p>{{ comment.content }}</p>
+<p></p>
+{% endfor %}
+{% endblock %}
