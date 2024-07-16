@@ -12,6 +12,7 @@
         <h2><a href="{% url 'article' id=article.id %}"> {{ article.name }} </a></h2>
         <div>{{ article.body|slice:":200" }}</div>
         <a href="{% url 'article_edit' id=article.id %}">Edit</a>
+        <a href="{% url 'article_delete' id=article.id %}">Delete</a>
     {% endfor %}
 {% endblock %}
 

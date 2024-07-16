@@ -37,6 +37,7 @@ class ArticleCreateView(View):
 
         return render(request, 'articles/create.html', {'form': form})
 
+
 class ArticleEditView(View):
     def get(self, request, *args, **kwargs):
         article_id = kwargs.get("id")
@@ -55,6 +56,20 @@ class ArticleEditView(View):
         else:
             return render(request, "articles/update.html",
                           {"form": form, "article_id": article_id})
+
+
+class ArticleDeleteView(View):
+    def get(self, request, *args, **kwargs):
+        article = Article.objects.get(id=kwargs.get("id"))
+        return render(request, "articles/delete.html",
+                      {"article": article})
+
+    def post(self, request, *args, **kwargs):
+        article = Article.objects.get(id=kwargs.get("id"))
+        if article:
+            article.delete()
+        return redirect("articles")
+
 
 class ArticleCommentCreateView(View):
     def get(self, request, *args, **kwargs):

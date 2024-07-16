@@ -1,0 +1,7 @@
+<form action="{% url 'article_delete' article.id %}" method="post">
+    {% csrf_token %}
+    <p>Really delete?</p>
+    <h1>{{ article.name }}</h1>
+    <button><a href="{% url 'articles' %}">Cancel</a></button>
+    <input type="submit" value="Delete">
+</form>
